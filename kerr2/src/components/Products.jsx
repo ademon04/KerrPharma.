@@ -1,8 +1,5 @@
-/* ─── PRODUCTS ───────────────────────────────────────────────────────── */
-
-import { useEffect, useRef, useState } from "react"
 import useReveal from "../hooks/useReveal"
-
+ 
 const PRODUCTS = [
   {
     code: "KP-01",
@@ -12,6 +9,7 @@ const PRODUCTS = [
     desc: "Complejo de silimarina micronizada, colina bitartrato y vitamina E d-alfa-tocoferol. Indicado para cirrosis hepática compensada, hepatitis crónica y daño por fármacos.",
     specs: [["Silimarina", "280 mg"], ["Colina", "150 mg"], ["Vit. E", "30 UI"], ["Cáps.", "60 / 30 días"]],
     accent: "#B8973A",
+    image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80&fit=crop",
   },
   {
     code: "KP-02",
@@ -21,6 +19,7 @@ const PRODUCTS = [
     desc: "Formulado con ketoácidos esenciales, vitamina B6 activa (P-5-P) y calcio citrato. Reduce la carga nitrogenada y preserva la función residual del riñón.",
     specs: [["Ketoácidos", "600 mg"], ["P-5-P", "50 mg"], ["Ca Citrato", "120 mg"], ["Cáps.", "90 / 45 días"]],
     accent: "#2B3A52",
+    image: "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&q=80&fit=crop",
   },
   {
     code: "KP-03",
@@ -30,9 +29,10 @@ const PRODUCTS = [
     desc: "Multivitamínico con dosis adaptadas al perfil de absorción de adultos sobre 60 años. Sin hierro añadido. Con metilfolato, B12 metilcobalamina y vitamina K2-MK7.",
     specs: [["Metilfolato", "400 mcg"], ["B12", "500 mcg"], ["K2-MK7", "90 mcg"], ["Tabs.", "60 / 60 días"]],
     accent: "#5A7A6A",
+    image: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=600&q=80&fit=crop",
   },
 ];
-
+ 
 export default function Products() {
   const ref = useReveal();
   return (
@@ -73,10 +73,26 @@ export default function Products() {
           transform: translateY(-4px);
         }
         .product-card-top {
-          height: 200px;
+          height: 220px;
           display: flex; flex-direction: column;
           justify-content: flex-end; padding: 28px;
           position: relative; overflow: hidden;
+        }
+        .product-card-top img {
+          position: absolute; inset: 0;
+          width: 100%; height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+        .product-card:hover .product-card-top img {
+          transform: scale(1.05);
+        }
+        .product-card-top-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(160deg, rgba(26,28,34,0.3) 0%, rgba(26,28,34,0.75) 100%);
+        }
+        .product-card-top-content {
+          position: relative; z-index: 1;
         }
         .product-code {
           font-family: 'DM Mono', monospace;
@@ -88,7 +104,7 @@ export default function Products() {
           font-size: 1.8rem; font-weight: 400; color: #fff;
           line-height: 1; margin-bottom: 4px;
         }
-        .product-tagline { font-size: 0.72rem; color: rgba(255,255,255,0.65); line-height: 1.4; }
+        .product-tagline { font-size: 0.72rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
         .product-card-body { padding: 28px; }
         .product-line-tag {
           display: inline-block;
@@ -135,21 +151,21 @@ export default function Products() {
     </>
   );
 }
-
+ 
 function ProductCard({ product: p, delay }) {
   const ref = useReveal();
   return (
     <div className="product-card reveal" ref={ref} style={{ transitionDelay: `${delay}s` }}>
-      <div className="product-card-top" style={{
-        background: `linear-gradient(160deg, ${p.accent}dd 0%, ${p.accent}99 60%, #1a1c22 100%)`
-      }}>
-        <div style={{
-          position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-          backgroundImage: "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%)",
+      <div className="product-card-top">
+        <img src={p.image} alt={p.name} loading="lazy" />
+        <div className="product-card-top-overlay" style={{
+          background: `linear-gradient(160deg, ${p.accent}99 0%, rgba(26,28,34,0.85) 100%)`
         }} />
-        <span className="product-code">{p.code}</span>
-        <div className="product-name-card">{p.name}</div>
-        <div className="product-tagline">{p.tagline}</div>
+        <div className="product-card-top-content">
+          <span className="product-code">{p.code}</span>
+          <div className="product-name-card">{p.name}</div>
+          <div className="product-tagline">{p.tagline}</div>
+        </div>
       </div>
       <div className="product-card-body">
         <span className="product-line-tag" style={{
