@@ -75,20 +75,48 @@ export default function Hero() {
           background: var(--c-surface);
           border: 1px solid var(--c-border);
           border-radius: 4px;
-          padding: 48px 40px;
+          overflow: hidden;
           width: 340px;
           box-shadow: 0 32px 80px rgba(26,28,34,0.08), 0 4px 12px rgba(26,28,34,0.04);
           position: relative;
+          transition: box-shadow var(--transition), transform var(--transition);
+        }
+        .hero-card:hover {
+          box-shadow: 0 24px 60px rgba(26,28,34,0.1);
+          transform: translateY(-4px);
         }
         .hero-card::before {
           content: '';
           position: absolute; top: 0; left: 0; right: 0; height: 3px;
           background: linear-gradient(90deg, var(--c-gold), var(--c-slate));
+          z-index: 1;
+        }
+        .hero-card-image {
+          width: 100%;
+          height: 200px;
+          position: relative;
+          overflow: hidden;
+        }
+        .hero-card-image img {
+          width: 100%; height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.6s ease;
+        }
+        .hero-card:hover .hero-card-image img {
+          transform: scale(1.05);
+        }
+        .hero-card-image-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(160deg, rgba(184,151,58,0.35) 0%, rgba(26,28,34,0.45) 100%);
+        }
+        .hero-card-body {
+          padding: 28px 32px 32px;
         }
         .hero-badge {
           display: inline-flex; align-items: center; gap: 8px;
           background: rgba(184,151,58,0.08); border: 1px solid rgba(184,151,58,0.2);
-          padding: 6px 12px; border-radius: 20px; margin-bottom: 28px;
+          padding: 6px 12px; border-radius: 20px; margin-bottom: 20px;
           font-size: 0.65rem; color: var(--c-gold); letter-spacing: 0.1em;
           font-family: 'DM Mono', monospace; text-transform: uppercase;
         }
@@ -174,16 +202,26 @@ export default function Hero() {
           </div>
           <div className="hero-visual" style={{ padding: "80px 32px" }}>
             <div className="hero-card">
-              <div className="hero-badge">Producto destacado</div>
-              <div className="product-mini-name">Hepatra·K</div>
-              <p className="product-mini-desc">
-                Complejo hepatoprotector con silimarina, colina y vitamina E. Formulado para adultos con condiciones hepáticas crónicas.
-              </p>
-              <div className="product-mini-detail">
-                <div className="mini-row"><span>Presentación</span><strong>60 cápsulas</strong></div>
-                <div className="mini-row"><span>Dosis diaria</span><strong>2 cápsulas</strong></div>
-                <div className="mini-row"><span>Origen</span><strong>Basilea, Suiza</strong></div>
-                <div className="mini-row"><span>Certificación</span><strong>ISO 22000 · GMP</strong></div>
+              <div className="hero-card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&q=80&fit=crop"
+                  alt="Hepatra·K"
+                  loading="lazy"
+                />
+                <div className="hero-card-image-overlay" />
+              </div>
+              <div className="hero-card-body">
+                <div className="hero-badge">Producto destacado</div>
+                <div className="product-mini-name">Hepatra·K</div>
+                <p className="product-mini-desc">
+                  Complejo hepatoprotector con silimarina, colina y vitamina E. Formulado para adultos con condiciones hepáticas crónicas.
+                </p>
+                <div className="product-mini-detail">
+                  <div className="mini-row"><span>Presentación</span><strong>60 cápsulas</strong></div>
+                  <div className="mini-row"><span>Dosis diaria</span><strong>2 cápsulas</strong></div>
+                  <div className="mini-row"><span>Origen</span><strong>Basilea, Suiza</strong></div>
+                  <div className="mini-row"><span>Certificación</span><strong>ISO 22000 · GMP</strong></div>
+                </div>
               </div>
             </div>
           </div>
